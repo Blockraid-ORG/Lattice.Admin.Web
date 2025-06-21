@@ -9,7 +9,7 @@ export default function AdminLayout({
 }) {
   return (
     <AlertDialogProvider>
-      <div className="flex items-start bg-primary/5 dark:bg-primary/10">
+      <div className="flex items-start">
         <SideMenu />
         <div className="flex-1 w-full overflow-x-hidden">
           <Navbar />

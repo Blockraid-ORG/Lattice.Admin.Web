@@ -11,7 +11,10 @@ import { TFormPermission } from "@/schema/permission";
 const getList = async () => {
   const response = await axiosInstance({
     method: 'GET',
-    url: `permissions/all`
+    url: `permissions`,
+    params: {
+      noPaginate: 1
+    }
   })
   const data = response.data.data.map((item: any) => {
     return {
@@ -47,6 +50,7 @@ const createData = async (payload: TFormPermission) => {
 };
 
 const updateData = async ({ id, ...payload }: TFormPermission & { id: string }) => {
+  console.log({payload})
   const response = await axiosInstance.patch(`permissions/${id}`, payload);
   if (response.status === 200) {
     toast.success('Success', {

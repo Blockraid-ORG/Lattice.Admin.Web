@@ -11,7 +11,10 @@ import { TFormUser, TFormUserRole } from "@/schema/user";
 const getList = async () => {
   const response = await axiosInstance({
     method: 'GET',
-    url: `users/all`
+    url: `users`,
+    params: {
+      noPaginate: 1
+    }
   })
   const data = response.data.data.map((item: any) => {
     return {

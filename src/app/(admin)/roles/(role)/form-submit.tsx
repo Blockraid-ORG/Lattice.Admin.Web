@@ -17,17 +17,18 @@ import {
   FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
-import { useRole } from "@/hooks/role/useRole"
-import { formRoleSchema, TFormRole, TResponseRole } from "@/schema/role"
+import { useCreateRole, useUpdateRole } from "@/modules/roles/hooks/useRole"
+import { formRoleSchema } from "@/modules/roles/schema"
+import { TFormRole, TRole } from "@/types/role"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { RiAddLine, RiPencilLine } from "react-icons/ri"
 
-export function FormAction(props?: { data?: TResponseRole }) {
+export function FormSubmit({ data }: { data?: TRole }) {
   const [dialog, setDialog] = useState(false)
-  const { create, update,lists } = useRole()
+  const { mutate: create, isPending: updating } = useCreateRole()
+  const { mutate: update, isPending: creating } = useUpdateRole()
   const form = useForm<TFormRole>({
     resolver: zodResolver(formRoleSchema),
     defaultValues: {
@@ -37,36 +38,38 @@ export function FormAction(props?: { data?: TResponseRole }) {
   })
 
   function onSubmit(values: TFormRole) {
-    if (props?.data?.id) {
-       update.mutate({
-        id: props.data.id,
-        ...values
-      })
+    if (data?.id) {
+      update(
+        { id: data.id, data: values },
+        {
+          onSuccess: () => {
+            setDialog(false)
+          }
+        }
+      )
     } else {
-      create.mutate(values);
-    }
-    setDialog(false)
-  }
-  function onOpenChange(state:boolean) {
-    setDialog(!dialog)
-    if (state && props?.data) {
-      form.reset({
-        name: props.data.name ?? '',
-        code: props.data.code ?? '',
+      create(values, {
+        onSuccess: () => {
+          setDialog(false)
+        }
       })
     }
+  }
+  function handleOpen() {
+    setDialog(!dialog)
+    form.reset({ ...data })
   }
 
   return (
-    <Dialog open={dialog} onOpenChange={onOpenChange}>
+    <Dialog open={dialog} onOpenChange={handleOpen}>
       <DialogTrigger asChild>
         {
-          props?.data ? (
+          data?.id ? (
             <Button size={"icon-sm"} variant={'warning'}>
               <RiPencilLine />
             </Button>
           ) : (
-              <Button className="w-full flex justify-start items-center"> <RiAddLine /> Add New</Button>
+            <Button className="w-full flex justify-start items-center"> <RiAddLine /> Add New</Button>
           )
         }
       </DialogTrigger>
@@ -108,7 +111,7 @@ export function FormAction(props?: { data?: TResponseRole }) {
                 )}
               />
               <div className="flex justify-end">
-                <Button disabled={lists.isLoading} type="submit">Save</Button>
+                <Button disabled={updating || creating} type="submit">Save</Button>
               </div>
             </form>
           </Form>

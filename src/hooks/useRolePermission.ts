@@ -26,7 +26,10 @@ export type GroupedPermissions = Record<string, CheckPermissionItem[]>;
 const getRolePermission = async (roleId: string): Promise<CheckPermissionItem[]> => {
   const response = await axiosInstance({
     method: 'GET',
-    url: `permissions/all`
+    url: `permissions`,
+    params: {
+      noPaginate: 1
+    }
   })
   const roleResponse = await axiosInstance.get(`roles/${roleId}`);
   const permissions = response.data.data;

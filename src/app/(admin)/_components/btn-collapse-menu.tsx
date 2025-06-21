@@ -1,13 +1,14 @@
 'use client'
+import { Icon } from '@/components/icon'
 import useSideMenu from '@/store/useSideMenu'
-import React from 'react'
-import { BsWindowSidebar } from 'react-icons/bs'
 
 export default function BtnCollapseMenu() {
-  const { setIsOpen } = useSideMenu()
+  const { setIsOpen, isOpen } = useSideMenu()
   return (
-    <button onClick={setIsOpen} className='w-7 h-7 bg-[#0B99FF]/10 shrink-0 rounded-md flex items-center justify-center'>
-      <BsWindowSidebar />
+    <button onClick={setIsOpen} className='hidden md:block'>
+      {
+        isOpen ? (<Icon className='text-2xl' name={'line-md:menu-fold-left'} />) : (<Icon className='text-2xl' name={'line-md:menu-fold-right'} />)
+      }
     </button>
   )
 }

@@ -56,7 +56,7 @@ class MenuService {
   async GetAllMenu(): Promise<TResponseMenu[]> {
     const response = await axiosInstance({
       method: 'GET',
-      url: `menus/all`
+      url: `menus/all`,
     })
     const data = response.data.data;
     return data;

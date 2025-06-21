@@ -1,23 +1,21 @@
-'use client'
-
-import { Card } from "@/components/ui/card";
-import React from "react";
+import React, { Suspense } from "react";
+import SuspenceLoader from "./suspence-loader";
 
 export default function PageContainer({
   children,
   actions,
   title,
   subtitle,
-  withCard
 }: {
   children: React.ReactNode;
   actions?: React.ReactNode;
   title?: string;
   subtitle?: string;
-  withCard?: boolean;
 }) {
   return (
-    <PageWrapper withCard={withCard}>
+    <Suspense fallback={
+      <SuspenceLoader />
+    }>
       <header className="flex flex-col gap-3 md:flex-row justify-between p-3">
         <div>
           <h1 className="text-xl font-semibold text-slate-700 dark:text-slate-300">{title}</h1>
@@ -30,14 +28,6 @@ export default function PageContainer({
       <div className="p-2">
         {children}
       </div>
-    </PageWrapper>
-  )
-}
-
-const PageWrapper = ({ withCard, children }: { withCard?: boolean, children: React.ReactNode }) => {
-  return (
-    <>
-      {withCard ? <Card className="overflow-hidden mb-4">{children}</Card> : <div className="mb-4">{children}</div>}
-    </>
+    </Suspense>
   )
 }

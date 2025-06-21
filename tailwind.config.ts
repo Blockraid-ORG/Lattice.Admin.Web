@@ -20,7 +20,7 @@ const config: Config = {
     	extend: {
     		colors: {
     			danger: {
-    				DEFAULT: '#E60186'
+						DEFAULT: '#EB3D40'
     			},
     			success: {
     				DEFAULT: '#86E601'

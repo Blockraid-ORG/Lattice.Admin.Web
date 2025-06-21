@@ -20,9 +20,6 @@ export default function SetPermissionContent({ roleId }: { roleId: string }) {
       setRoleGroups(createPermissionGroup(data!))
     }
   }, [data])
-
-  // console.log({ detailRole:detailRole.data.name })
-
   function handleCheckParent(state: boolean, group: string) {
     setRoleGroups((prev) => {
       if (!prev) return prev;

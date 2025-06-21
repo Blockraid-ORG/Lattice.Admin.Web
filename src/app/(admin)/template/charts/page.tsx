@@ -1,5 +1,4 @@
 import React from 'react'
-import PageContainer from '../../_components/containers/page-container'
 import SampleLineChart from './sample-line-chart'
 import SampleBarChart from './sample-bar-chart'
 import SampleAreaChart from './sample-area-chart'
@@ -12,6 +11,7 @@ const SampleLineChartZoomable = dynamic(() => import('./sample-line-chart-zoomab
   ssr: false,
 });
 import SampleBarChartWithNegative from './sample-bar-chart-with-negative'
+import PageContainer from '@/components/page-container'
 
 export default function ChartTemplatePage() {
   return (

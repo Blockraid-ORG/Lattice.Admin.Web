@@ -15,18 +15,18 @@ export function ModeToggle() {
 
   
   if (!mounted) {
-    return <Button variant={'outline'} size={'icon'} />
+    return <Button size={'icon'} />
   }
 
   return (
     <>
       {
         theme === 'dark' ? (
-          <Button variant={'outline'} onClick={()=>setTheme('light')} size={'icon'}>
+          <Button onClick={()=>setTheme('light')} size={'icon'}>
             <Sun />
           </Button>
         ) : (
-          <Button variant={'outline'} onClick={()=>setTheme('dark')} size={'icon'}>
+          <Button onClick={()=>setTheme('dark')} size={'icon'}>
             <Moon />
           </Button>
         )

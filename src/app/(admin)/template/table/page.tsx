@@ -1,8 +1,8 @@
 import SuspenceLoader from '@/components/suspence-loader';
 import { Suspense } from 'react';
-import PageContainer from '../../_components/containers/page-container';
 import FormTemplate from './form';
 import Table from './table';
+import PageContainer from '@/components/page-container';
 export default function TemplateTablePage() {
   return (
     <PageContainer title='Wallets' subtitle='List Of Wallet' actions={

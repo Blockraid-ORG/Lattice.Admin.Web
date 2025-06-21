@@ -20,7 +20,7 @@ export default function DropdownMenuAdmin() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button size={'icon'} variant={'outline'}>
+        <Button size={'icon'}>
           <User />
         </Button>
       </DropdownMenuTrigger>

@@ -30,12 +30,12 @@ export const columns: ColumnDef<TResponsePermission>[] = [
     cell: ({ row }) => {
       return (
         <Badge className={cn(
-          'rounded-sm',
-          row.original.method === 'GET' && 'bg-green-500',
-          row.original.method === 'POST' && 'bg-orange-500',
-          row.original.method === 'DELETE' && 'bg-red-500',
-          row.original.method === 'PATCH' && 'bg-violet-500',
-          row.original.method === 'PUT' && 'bg-blue-500',
+          'rounded',
+          row.original.method === 'GET' && 'bg-green-500/10 text-green-500',
+          row.original.method === 'POST' && 'bg-orange-500/10 text-orange-500',
+          row.original.method === 'DELETE' && 'bg-red-500/10 text-red-500',
+          row.original.method === 'PATCH' && 'bg-violet-500/10 text-violet-500',
+          row.original.method === 'PUT' && 'bg-blue-500/10 text-blue-500',
         )}>{row.original.method}</Badge>
       )
     }

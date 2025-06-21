@@ -12,3 +12,8 @@ export const toObjectQuery = (params: URLSearchParams): Record<string, string> =
   });
   return obj;
 };
+
+export const toUrlAsset = (path: string) => {
+  const baseUrl = process.env.baseUrl;
+  return `${baseUrl}/${path}`
+}

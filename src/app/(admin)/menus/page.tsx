@@ -1,19 +1,10 @@
-import React from 'react'
-import PageContainer from '../_components/containers/page-container'
-import { FormMenu } from './form'
-import TableMenu from './table'
-import PermissionContainer from '@/components/permission-container'
+import PageContainer from '@/components/page-container'
+import Table from './table'
 
 export default function page() {
   return (
-    <PageContainer title='Menu' subtitle='List Of Menu' actions={
-      <div>
-        <PermissionContainer permission='POST_menus'>
-          <FormMenu />
-        </PermissionContainer>
-      </div>
-    }>
-      <TableMenu />
+    <PageContainer title='Menu' subtitle='List Of Menu'>
+      <Table />
     </PageContainer>
   )
 }

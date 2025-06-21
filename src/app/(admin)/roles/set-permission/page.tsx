@@ -1,4 +1,4 @@
-import PageContainer from '../../_components/containers/page-container';
+import PageContainer from '@/components/page-container';
 import SetPermissionContent from './content';
 interface PageProps {
   searchParams: { roleId: string };

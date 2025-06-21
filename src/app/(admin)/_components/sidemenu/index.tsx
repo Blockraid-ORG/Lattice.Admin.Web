@@ -20,6 +20,7 @@ export default function SideMenu() {
       'bg-white dark:bg-primary-foreground top-0 h-screen duration-300',
       isOpen ? 'w-[260px] md:w-[260px]' : 'w-[80px]',
       'fixed md:sticky z-20',
+      'border-r',
       isHidden ? '-translate-x-full md:-translate-x-0' : '-translate-x-0'
     )}>
       <div className="flex flex-col h-full">

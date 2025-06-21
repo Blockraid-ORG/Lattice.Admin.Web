@@ -39,7 +39,7 @@ export default function AuthLayout({
         {children}
         <div className="flex-1 shrink-0 flex flex-col justify-end pb-4 max-w-sm mx-auto w-full px-6 md:px-0">
           <div>
-            <div className="text-center text-sm font-semibold text-slate-400">Powered By: <a href="https://geneurasys.com" target="_blank" rel="noopener noreferrer">Geneurasys</a></div>
+            <div className="text-center text-sm font-semibold text-slate-400">Powered By: <a href="/" target="_blank" rel="noopener noreferrer">SporeVC Team</a></div>
             <div className="text-xs text-center text-slate-400">Version: 1.0.0</div>
           </div>
         </div>
