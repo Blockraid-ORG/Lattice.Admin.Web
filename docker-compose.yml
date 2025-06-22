@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  lattice-admin-nextjs-app:
+    container_name: lattice-admin-nextjs-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    restart: unless-stopped
