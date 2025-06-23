@@ -94,3 +94,11 @@ export const useRoleList = () => {
   });
   return queryRole
 }
+export const useAllRoleList = () => {
+  const queryRole = useQuery({
+    queryKey: ["get_role_all"],
+    queryFn: () => roleService.GET_ALL(),
+    enabled: true
+  });
+  return queryRole
+}

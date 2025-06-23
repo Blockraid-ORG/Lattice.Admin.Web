@@ -93,7 +93,6 @@ export const useRole = () => {
   const queryRoleAlls = useQuery({
     queryKey: ["roles_all"],
     queryFn: () => getList(),
-    // enabled: false
   });
   const queryRoles = useQuery({
     queryKey: ["roles", query],
