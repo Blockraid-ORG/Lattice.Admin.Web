@@ -1,6 +1,6 @@
 'use client'
 import { FormDelete } from "@/components/forms/form-delete"
-import { useDeleteCategory } from "@/modules/category/hooks/useChain"
+import { useDeleteCategory } from "@/modules/category/hooks/useCategory"
 
 export function ConfirmDelete({ id }: { id: string }) {
   const { mutate, isPending } = useDeleteCategory()

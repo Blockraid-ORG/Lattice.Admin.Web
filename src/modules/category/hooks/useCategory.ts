@@ -81,10 +81,9 @@ export const useUpdateCategory = () => {
 
 // extra
 export const useCategoryList = () => {
-  const queryChain = useQuery({
+  return useQuery({
     queryKey: ["get_category_list"],
     queryFn: () => categoryService.LISTS(),
     enabled: true
   });
-  return queryChain
 }

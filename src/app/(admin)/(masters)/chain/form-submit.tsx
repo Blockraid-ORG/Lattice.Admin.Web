@@ -116,8 +116,8 @@ export function FormSubmit({ data }: { data?:TChain }) {
                     control={form.control}
                     options={[
                       {
-                        value: 'Mainet',
-                        label: 'Mainet'
+                        value: 'Mainnet',
+                        label: 'Mainnet'
                       },
                       {
                         value: 'Testnet',
