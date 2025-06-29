@@ -1,33 +1,32 @@
 "use client"
 import { toObjectQuery } from "@/lib/param";
-import { TFormRole } from "@/types/role";
+import { TFormProject } from "@/types/project";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import roleService from "../role.service";
+import projectService from "../project.service";
 
 
-export const useRole = () => {
+export const useProject = () => {
   const searchString = useSearchParams();
   const query = toObjectQuery(searchString)
-  const queryRole = useQuery({
-    queryKey: ["get_Role", query],
-    queryFn: () => roleService.GET(query),
+  return useQuery({
+    queryKey: ["get_project", query],
+    queryFn: () => projectService.GET(query),
     enabled: true
   });
-  return queryRole
 }
 
-export const useCreateRole = () => {
+export const useCreateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: TFormRole) => roleService.CREATE(data),
+    mutationFn: (data: TFormProject) => projectService.CREATE(data),
     onSuccess: () => {
       toast.success('Success', {
         description: "Success submit data"
       })
       queryClient.invalidateQueries({
-        queryKey: ["get_Role"]
+        queryKey: ["get_project"]
       });
     },
     onError: () => {
@@ -37,16 +36,16 @@ export const useCreateRole = () => {
     }
   });
 };
-export const useDeleteRole = () => {
+export const useDeleteProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: string) => roleService.DELETE(id),
+    mutationFn: (id: string) => projectService.DELETE(id),
     onSuccess: () => {
       toast.success('Success', {
         description: "Success delete data"
       })
       queryClient.invalidateQueries({
-        queryKey: ["get_Role"]
+        queryKey: ["get_project"]
       });
     },
     onError: () => {
@@ -57,18 +56,18 @@ export const useDeleteRole = () => {
   });
 };
 
-export const useUpdateRole = () => {
+export const useUpdateProject = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (
-    { id, data }: { id: string; data: TFormRole }
-    ) => roleService.UPDATE(id,data),
+      { id, data }: { id: string; data: TFormProject }
+    ) => projectService.UPDATE(id, data),
     onSuccess: () => {
       toast.success('Success', {
         description: "Success submit data"
       })
       queryClient.invalidateQueries({
-        queryKey: ["get_Role"]
+        queryKey: ["get_project"]
       });
     },
     onError: () => {
@@ -78,27 +77,12 @@ export const useUpdateRole = () => {
     }
   });
 };
-export const useDetailRole = (id: string) => {
-  return useQuery({
-    queryKey: ["detail_role", id],
-    queryFn: () => roleService.DETAIL(id),
-  });
-}
 
 // extra
-export const useRoleList = () => {
-  const queryRole = useQuery({
-    queryKey: ["get_role_list"],
-    queryFn: () => roleService.LISTS(),
+export const useProjectList = () => {
+  return useQuery({
+    queryKey: ["get_project_list"],
+    queryFn: () => projectService.LISTS(),
     enabled: true
   });
-  return queryRole
-}
-export const useAllRoleList = () => {
-  const queryRole = useQuery({
-    queryKey: ["get_role_all"],
-    queryFn: () => roleService.GET_ALL(),
-    enabled: true
-  });
-  return queryRole
 }

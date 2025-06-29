@@ -18,13 +18,13 @@ import {
 } from "@/components/ui/form"
 import { IoMdOptions } from "react-icons/io"
 
-import { useRole } from "@/hooks/role/useRole"
+import { ReactSelect } from "@/components/react-select"
 import { useUser } from "@/hooks/user/useUser"
+import { useAllRoleList } from "@/modules/roles/hooks/useRole"
 import { formUserRoleSchema, TFormUserRole, TResponseUser } from "@/schema/user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
-import { ReactSelect } from "@/components/react-select"
 type OptionType = {
   label: string
   value: string
@@ -33,7 +33,9 @@ export function SignRole(props: { data: TResponseUser }) {
   const [roles, setRoles] = useState<OptionType[]>([])
   const [dialog, setDialog] = useState(false)
   const { lists, setRole, getDetail } = useUser()
-  const { options } = useRole()
+  const { data } = useAllRoleList()
+
+  console.log(data,"OK")
 
   const form = useForm<TFormUserRole>({
     resolver: zodResolver(formUserRoleSchema),
@@ -43,7 +45,6 @@ export function SignRole(props: { data: TResponseUser }) {
   })
 
   function onSubmit(values: TFormUserRole) {
-    console.log(values, "V")
     const data = {
       userId: values.userId,
       roleIds: roles.map(i=>i.value)
@@ -98,7 +99,7 @@ export function SignRole(props: { data: TResponseUser }) {
                           setRoles(selected)
                         }}
                         isMulti
-                        options={options.data}
+                        options={data}
                       />
                     </FormControl>
                     <FormMessage />

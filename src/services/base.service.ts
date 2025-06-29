@@ -10,7 +10,9 @@ export abstract class BaseService<T, TForm = Partial<T>, TResponse= T> {
     const response = await axiosInstance({
       method: 'GET',
       url: this.endpoint,
-      params: { noPaginate: 1 }
+      params: {
+        noPaginate: 1
+      }
     })
     return response.data.data.map((item: any) => ({
       value: item.id,

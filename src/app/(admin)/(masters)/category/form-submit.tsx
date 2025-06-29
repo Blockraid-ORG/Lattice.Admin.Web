@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { Form } from "@/components/ui/form"
 import { categoryFrequency } from "@/constants"
-import { useCreateCategory, useUpdateCategory } from "@/modules/category/hooks/useChain"
+import { useCreateCategory, useUpdateCategory } from "@/modules/category/hooks/useCategory"
 import { formCategorySchema } from "@/modules/category/schema"
 import { TCategory, TFormCategory } from "@/types/category"
 import { zodResolver } from "@hookform/resolvers/zod"
