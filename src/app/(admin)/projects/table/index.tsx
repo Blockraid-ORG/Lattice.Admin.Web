@@ -1,14 +1,12 @@
 'use client'
 import DataTable from '@/components/datatable'
-import PermissionContainer from '@/components/permission-container'
-import { useCategory } from '@/modules/category/hooks/useCategory'
-import { TCategory } from '@/types/category'
+import { useProject } from '@/modules/projects/hooks/useProject'
+import { TProject } from '@/types/project'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { FormSubmit } from '../form-submit'
 import { columns } from './columns'
 
 export default function Table() {
-  const { data, isLoading } = useCategory()
+  const { data, isLoading } = useProject()
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -18,12 +16,7 @@ export default function Table() {
     router.push(`?${params.toString()}`)
   }
   return (
-    <DataTable<TCategory>
-      actions={
-        <PermissionContainer permission='POST_categories'>
-          <FormSubmit />
-        </PermissionContainer>
-      }
+    <DataTable<TProject>
       data={data?.data || []}
       columns={columns}
       pageCount={data?.meta?.lastPage}
