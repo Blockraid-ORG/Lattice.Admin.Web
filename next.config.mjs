@@ -4,7 +4,7 @@ const nextConfig = {
     baseUrl: process.env.BASE_URL
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost','api-dev.e-wow.my.id'],
   },
 };
 
