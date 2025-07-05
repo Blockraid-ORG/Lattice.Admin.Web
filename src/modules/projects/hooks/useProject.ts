@@ -1,6 +1,6 @@
 "use client"
 import { toObjectQuery } from "@/lib/param";
-import { TFormProject } from "@/types/project";
+import { TApproveForm, TFormProject, TRejectForm } from "@/types/project";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -16,6 +16,14 @@ export const useProject = () => {
     enabled: true
   });
 }
+
+export const useProjectDetail = (id?: string) => {
+  return useQuery({
+    queryKey: ["get_project_by_id", id],
+    queryFn: () => projectService.DETAIL(id!),
+    enabled: !!id,
+  });
+};
 
 export const useCreateProject = () => {
   const queryClient = useQueryClient();
@@ -79,6 +87,48 @@ export const useUpdateProject = () => {
 };
 
 // extra
+
+export const useProjectReject = (id:string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: TRejectForm) => projectService.REJECT(data),
+    onSuccess: () => {
+      toast.success('Success', {
+        description: "Project rejected!"
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["get_project_by_id", id]
+      });
+    },
+    
+    onError: () => {
+      toast.error('Error', {
+        description: "Fail to submit data!"
+      })
+    }
+  });
+}
+export const useProjectApprove = (id: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: TApproveForm) => projectService.APPROVE(data),
+    onSuccess: () => {
+      toast.success('Success', {
+        description: "Project approved!"
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["get_project_by_id", id]
+      });
+    },
+
+    onError: () => {
+      toast.error('Error', {
+        description: "Fail to submit data!"
+      })
+    }
+  });
+}
+
 export const useProjectList = () => {
   return useQuery({
     queryKey: ["get_project_list"],

@@ -23,6 +23,16 @@ export default function SidebarMenu() {
     setMounted(true)
   }, [])
 
+  const isPathActive = (item: TMenu, currentPath: string): boolean => {
+    if (!item.path) return false
+
+    const isExactMatch = currentPath === item.path
+    const isDynamicMatch =
+      currentPath.startsWith(item.path + '/') && (!item.children || item.children.length === 0)
+
+    return isExactMatch || isDynamicMatch
+  }
+
   const isDark = resolvedTheme === 'dark'
   const themes = sidebarTheme(isDark)
   const themeStyle = themes[resolvedTheme as 'dark' | 'light']
@@ -72,7 +82,8 @@ export default function SidebarMenu() {
   const renderMenuItems = (items: TMenu[]): JSX.Element[] => {
     return items.map(item => {
       const hasChildren = item.children && item.children.length > 0
-      const isActive = pathname === item.path
+      // const isActive = pathname === item.path
+      const isActive = isPathActive(item, pathname)
       const shouldOpen = hasChildren && isPathInTree(item.children, pathname)
 
       if (hasChildren) {

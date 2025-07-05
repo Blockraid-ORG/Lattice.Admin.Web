@@ -1,5 +1,6 @@
 'use client'
 import DataTable from '@/components/datatable'
+import { Button } from '@/components/ui/button'
 import { useProject } from '@/modules/projects/hooks/useProject'
 import { TProject } from '@/types/project'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -17,6 +18,9 @@ export default function Table() {
   }
   return (
     <DataTable<TProject>
+      actions={
+        <Button>Filter</Button>
+      }
       data={data?.data || []}
       columns={columns}
       pageCount={data?.meta?.lastPage}
