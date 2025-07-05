@@ -47,3 +47,14 @@ export const createProjectSchema = z.object({
   socials: z.array(socialSchema).optional(),
   presales: presaleSchema.optional(),
 });
+
+export const rejectFormSchema = z.object({
+  projectId: z.string().min(1, { message: 'required' }),
+  status: z.enum(['PENDING', 'APPROVED', 'REJECTED']),
+  note: z.string().min(1, { message: 'required' }),
+})
+
+export const approveFormSchema = z.object({
+  projectId: z.string().min(1, { message: 'required' }),
+  status: z.enum(['PENDING', 'APPROVED', 'REJECTED']),
+})

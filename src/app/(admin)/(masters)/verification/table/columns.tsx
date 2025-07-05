@@ -46,12 +46,12 @@ export const columns: ColumnDef<TVerification>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center justify-end gap-1">
-          <PermissionContainer permission='PATCH_verifications/:id'>
+          <PermissionContainer permission='PATCH_master-verifications/:id'>
             <FormSubmit
               data={{ ...row.original }}
             />
           </PermissionContainer>
-          <PermissionContainer permission='DELETE_verifications/:id'>
+          <PermissionContainer permission='DELETE_master-verifications/:id'>
             <ConfirmDelete id={row.original.id} />
           </PermissionContainer>
         </div>
