@@ -18,7 +18,7 @@ export default function Navbar() {
           <div className='flex-1 flex items-center gap-2'>
             <BtnCollapseMenu />
             <div>
-              <h2 className='font-semibold text-xl capitalize'>{labelName || 'Dashboard' }</h2>
+              <h2 className='font-semibold text-xl capitalize'>{labelName.split("-").join(" ") || 'Dashboard' }</h2>
             </div>
           </div>
           <div className='flex items-center gap-2'>
