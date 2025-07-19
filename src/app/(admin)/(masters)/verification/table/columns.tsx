@@ -16,7 +16,7 @@ export const columns: ColumnDef<TVerification>[] = [
     accessorKey: 'IDCardRequired',
     header: 'ID Card',
     cell: ({ row }) => {
-      return <div>{ row.original.IDCardRequired ? "REQUIRED":"OPTIONAL"}</div>
+      return <div>{row.original.IDCardRequired ? "REQUIRED" : "OPTIONAL"}</div>
     }
   },
   {
@@ -45,16 +45,23 @@ export const columns: ColumnDef<TVerification>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       return (
-        <div className="flex items-center justify-end gap-1">
-          <PermissionContainer permission='PATCH_master-verifications/:id'>
-            <FormSubmit
-              data={{ ...row.original }}
-            />
-          </PermissionContainer>
-          <PermissionContainer permission='DELETE_master-verifications/:id'>
-            <ConfirmDelete id={row.original.id} />
-          </PermissionContainer>
-        </div>
+        <>
+          {row.original.name === 'KYC' || row.original.name === 'KYB' ? (
+            <div>-</div>
+          ) : (
+            <div className="flex items-center justify-end gap-1">
+              <PermissionContainer permission='PATCH_master-verifications/:id'>
+                <FormSubmit
+                  data={{ ...row.original }}
+                />
+              </PermissionContainer >
+              <PermissionContainer permission='DELETE_master-verifications/:id'>
+                <ConfirmDelete id={row.original.id} />
+              </PermissionContainer>
+            </div >
+          )}
+        </>
+
       )
     }
   }
