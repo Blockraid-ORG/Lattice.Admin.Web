@@ -14,7 +14,15 @@ const nextConfig = {
         'protocol': 'https',
       },
       {
+        'hostname': 'red-careful-koala-550.mypinata.cloud',
+        'protocol': 'https',
+      },
+      {
         'hostname': 'api-dev.e-wow.my.id',
+        'protocol': 'https',
+      },
+      {
+        'hostname': 'api.terravest.capital',
         'protocol': 'https',
       },
       {
