@@ -44,8 +44,39 @@ export const columns: ColumnDef<TChain>[] = [
     header: 'Type',
   },
   {
-    accessorKey: 'urlScanner',
-    header: 'Scanner',
+    accessorKey: 'chainid',
+    header: 'Chainid',
+  },
+  {
+    accessorKey: 'url',
+    header: 'Urls',
+    cell: ({ row }) => {
+      return (
+        <div>
+          <div className="flex">
+            <div className="w-24 shrink-0">Api Url</div>
+            <div className="w-2">:</div>
+            <div className="flex-1">
+              {row.original.urlApi ?? "-"}
+            </div>
+          </div>
+          <div className="flex">
+            <div className="w-24 shrink-0">Rpc Url</div>
+            <div className="w-2">:</div>
+            <div className="flex-1">
+              {row.original.urlRpc ?? "-"}
+            </div>
+          </div>
+          <div className="flex">
+            <div className="w-24 shrink-0">Scanner</div>
+            <div className="w-2">:</div>
+            <div className="flex-1">
+              {row.original.urlScanner ?? "-"}
+            </div>
+          </div>
+        </div>
+      )
+    }
   },
   {
     id: "actions",
