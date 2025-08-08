@@ -11,4 +11,8 @@ export type TChain = {
   logo: string
   urlScanner: string
   type: string
+  urlScanner: string | null
+  chainid: number,
+  urlApi: string | null,
+  urlRpc: string | null
 }
