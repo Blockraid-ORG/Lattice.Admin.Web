@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
+import { toUrlAsset } from "@/lib/utils";
 import { TProject } from "@/types/project";
 import { ColumnDef } from "@tanstack/react-table";
 import { Eye } from "lucide-react";
-import { toast } from "sonner";
+import Image from "next/image";
+import Link from "next/link";
 export const columns: ColumnDef<TProject>[] = [
+  {
+    accessorKey: 'logo',
+    header: 'Logo',
+    cell: ({ row }) => {
+      return (
+        <Image className="rounded-md" src={toUrlAsset(row.original.logo)} width={40} height={40} alt={row.original.logo} />
+      )
+    }
+  },
   {
     accessorKey: 'chain',
     header: 'Chain',
@@ -15,10 +26,6 @@ export const columns: ColumnDef<TProject>[] = [
         </div>
       )
     }
-  },
-  {
-    accessorKey: 'logo',
-    header: 'Logo',
   },
   {
     accessorKey: 'name',
@@ -35,11 +42,11 @@ export const columns: ColumnDef<TProject>[] = [
   {
     id: "actions",
     enableHiding: false,
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="flex items-center justify-end gap-1">
-          <Button onClick={()=>toast.info('Under Develop')} size={"sm"} variant={'default'}>
-            <Eye /> Review
+          <Button asChild size={"sm"} variant={'default'}>
+            <Link href={`/projects/${row.original.id}`}><Eye /> Review</Link>
           </Button>
         </div>
       )

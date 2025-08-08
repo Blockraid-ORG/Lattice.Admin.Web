@@ -38,7 +38,7 @@ export const useAuth = () => {
         }
       })
       localStorage.setItem('sidemenus', JSON.stringify(sidemenu.data.data))
-      router.push('/');
+      window.location.reload()
     } catch (error:any) {
       setError(error.response.data.message)
       console.log(error.response.status)

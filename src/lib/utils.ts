@@ -14,6 +14,10 @@ export const toObjectQuery = (params: URLSearchParams): Record<string, string> =
 };
 
 export const toUrlAsset = (path: string) => {
-  const baseUrl = process.env.baseUrl;
-  return `${baseUrl}/${path}`
+  if (path.startsWith('http')) {
+    return path;
+  } else {
+    const baseUrl = process.env.baseUrl;
+    return `${baseUrl}/${path}`
+  }
 }

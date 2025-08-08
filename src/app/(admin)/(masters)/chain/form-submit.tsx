@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Form } from "@/components/ui/form"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { useUpload } from "@/hooks/useUpload"
 import { toUrlAsset } from "@/lib/utils"
 import { useCreateChain, useUpdateChain } from "@/modules/chain/hooks/useChain"
@@ -24,7 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
-export function FormSubmit({ data }: { data?:TChain }) {
+export function FormSubmit({ data }: { data?: TChain }) {
   const [dialog, setDialog] = useState(false)
   const { mutate: upload } = useUpload()
   const { mutate: createChain, isPending: updating } = useCreateChain()
@@ -36,13 +37,16 @@ export function FormSubmit({ data }: { data?:TChain }) {
       logo: "",
       ticker: "",
       urlScanner: "",
-      type: ""
+      type: "",
+      chainid: 1,
+      urlApi: '',
+      urlRpc: ''
     },
   })
 
   function onSubmit(values: TFormChain) {
     if (data?.id) {
-      updateChain({id:data.id, data:values}, {
+      updateChain({ id: data.id, data: values }, {
         onSuccess: () => {
           setDialog(false)
         }
@@ -67,14 +71,23 @@ export function FormSubmit({ data }: { data?:TChain }) {
   }
   function handleOpen() {
     setDialog(!dialog)
-    form.reset({ ...data })
+    form.reset({
+      chainid: data?.chainid,
+      logo: data?.logo,
+      name: data?.name,
+      ticker: data?.ticker,
+      type: data?.type,
+      urlApi: data?.urlApi || '-',
+      urlRpc: data?.urlRpc || '-',
+      urlScanner: data?.urlScanner,
+    })
   }
   return (
     <Dialog open={dialog} onOpenChange={handleOpen}>
       <form>
         <DialogTrigger asChild>
           {
-            data?.id? (
+            data?.id ? (
               <Button size={"icon-sm"}><Icon name="mdi:pencil" /></Button>
             ) : (
               <Button>Add New</Button>
@@ -92,45 +105,67 @@ export function FormSubmit({ data }: { data?:TChain }) {
           <div className="grid gap-4">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-                <div className="grid md:grid-cols-4 gap-3 items-center">
-                  <div>
-                    <FormImageDropzone defaultImage={data?.logo ? toUrlAsset(form.getValues('logo')!): ''} onChange={handleUploadFile} text="Upload Icon Here..." />
+                <ScrollArea className="h-[60vh] md:h-auto">
+                  <div className="grid md:grid-cols-4 gap-3 items-center mx-2">
+                    <div className="w-32 md:w-auto">
+                      <FormImageDropzone defaultImage={data?.logo ? toUrlAsset(form.getValues('logo')!) : ''} onChange={handleUploadFile} text="Upload Icon Here..." />
+                    </div>
+                    <div className="md:col-span-3 space-y-2">
+                      <FormInput
+                        placeholder="name"
+                        label="Name" name={"name"}
+                        control={form.control}
+                      />
+                      <div className="grid grid-cols-2 gap-3">
+                        <FormInput
+                          placeholder="ticker"
+                          label="Ticker" name={"ticker"}
+                          control={form.control}
+                        />
+                        <div>
+                          <FormInput
+                            placeholder="chainid"
+                            label="Chainid" name={"chainid"}
+                            control={form.control}
+                          />
+                          <a className="text-xs font-bold underline" href="https://docs.etherscan.io/etherscan-v2/supported-chains" target="_blank" rel="noopener noreferrer">Show Chain ID</a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="md:col-span-3 space-y-2">
+                  <div className="grid grid-cols-1 gap-3">
+                    <FormSelect
+                      placeholder="type"
+                      label="Type" name={"type"}
+                      control={form.control}
+                      options={[
+                        {
+                          value: 'Mainnet',
+                          label: 'Mainnet'
+                        },
+                        {
+                          value: 'Testnet',
+                          label: 'Testnet'
+                        },
+                      ]}
+                    />
                     <FormInput
-                      placeholder="name"
-                      label="Name" name={"name"}
+                      placeholder="urlScanner"
+                      label="Scanner" name={"urlScanner"}
                       control={form.control}
                     />
                     <FormInput
-                      placeholder="ticker"
-                      label="Ticker" name={"ticker"}
+                      placeholder="urlApi"
+                      label="Url Api" name={"urlApi"}
+                      control={form.control}
+                    />
+                    <FormInput
+                      placeholder="urlRpc"
+                      label="Url RPC" name={"urlRpc"}
                       control={form.control}
                     />
                   </div>
-                </div>
-                <div className="grid grid-cols-1 gap-3">
-                  <FormSelect
-                    placeholder="type"
-                    label="Type" name={"type"}
-                    control={form.control}
-                    options={[
-                      {
-                        value: 'Mainnet',
-                        label: 'Mainnet'
-                      },
-                      {
-                        value: 'Testnet',
-                        label: 'Testnet'
-                      },
-                    ]}
-                  />
-                  <FormInput
-                    placeholder="urlScanner"
-                    label="Scanner" name={"urlScanner"}
-                    control={form.control}
-                  />
-                </div>
+                </ScrollArea>
                 <div className="mt-4">
                   <DialogFooter>
                     <DialogClose asChild>

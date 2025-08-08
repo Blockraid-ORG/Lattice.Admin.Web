@@ -20,7 +20,7 @@ export default function Table() {
   return (
     <DataTable<TVerification>
       actions={
-        <PermissionContainer permission='POST_verifications'>
+        <PermissionContainer permission='POST_master-verifications'>
           <FormSubmit />
         </PermissionContainer>
       }

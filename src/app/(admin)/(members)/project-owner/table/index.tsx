@@ -1,13 +1,12 @@
 'use client'
 import DataTable from '@/components/datatable'
-import { Button } from '@/components/ui/button'
-import { useProject } from '@/modules/projects/hooks/useProject'
-import { TProject } from '@/types/project'
+import { useProjectOwnerMembers } from '@/modules/members/useMembers'
+import { TMember } from '@/types/member'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { columns } from './columns'
 
 export default function Table() {
-  const { data, isLoading } = useProject()
+  const { data, isLoading } = useProjectOwnerMembers()
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -17,10 +16,7 @@ export default function Table() {
     router.push(`?${params.toString()}`)
   }
   return (
-    <DataTable<TProject>
-      actions={
-        <Button>Filter</Button>
-      }
+    <DataTable<TMember>
       data={data?.data || []}
       columns={columns}
       pageCount={data?.meta?.lastPage}
