@@ -1,9 +1,8 @@
 'use client'
 import { FormDelete } from "@/components/forms/form-delete"
-import { useDeleteSocial } from "@/modules/socials/hooks/useSocial"
-
+import { useDeleteProjectType } from "@/modules/project-type/hooks/useProjectType"
 export function ConfirmDelete({ id }: { id: string }) {
-  const { mutate, isPending } = useDeleteSocial()
+  const { mutate, isPending } = useDeleteProjectType()
   return (
     <FormDelete
       onConfirm={() => mutate(id)}
