@@ -64,6 +64,7 @@ export type TProject = {
   Presales: TPresale[]
   user: TProjectOwner
   reviewLogs: TReviewLog[]
+  addressPoolPaymentLog: any[] | []
 }
 
 export type TRejectForm = z.infer<typeof rejectFormSchema>
