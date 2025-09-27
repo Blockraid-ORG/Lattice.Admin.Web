@@ -11,7 +11,7 @@ export const columns: ColumnDef<TProject>[] = [
     header: 'Logo',
     cell: ({ row }) => {
       return (
-        <Image className="rounded-md" src={toUrlAsset(row.original.logo)} width={40} height={40} alt={row.original.logo} />
+        <Image className="rounded" src={toUrlAsset(row.original.logo)} width={30} height={30} alt={row.original.logo} />
       )
     }
   },
@@ -38,6 +38,29 @@ export const columns: ColumnDef<TProject>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
+  },
+  {
+    accessorKey: 'addressPoolPaymentLog',
+    header: 'Payment Status',
+    cell: ({ row }) => {
+      return (
+        <>
+          {row.original.addressPoolPaymentLog.length > 0 ? (
+            <div>
+              <div>Paid</div>
+              <div className="text-xs font-semibold">
+                {row.original.addressPoolPaymentLog[0].createdAt}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div>Unpaid</div >
+              <div className="text-xs font-semibold">Waiting Payment</div>
+            </div >
+          )}
+        </>
+      )
+    }
   },
   {
     id: "actions",

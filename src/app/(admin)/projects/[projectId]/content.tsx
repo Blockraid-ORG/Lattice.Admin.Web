@@ -3,7 +3,7 @@
 import { Icon } from "@/components/icon"
 import { toUrlAsset } from "@/lib/utils"
 import { useProjectDetail } from "@/modules/projects/hooks/useProject"
-import dayjs from "dayjs"
+// import dayjs from "dayjs"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams } from "next/navigation"
@@ -13,6 +13,7 @@ import { FormApprove } from "./form-approve"
 import { FormReject } from "./form-reject"
 import { ReviewLog } from "./review-log"
 import RowItem from "./row-item"
+import { Button } from "@/components/ui/button"
 
 export default function ProjectContent() {
   const { projectId } = useParams()
@@ -32,7 +33,12 @@ export default function ProjectContent() {
                   <div className="flex items-center justify-center md:justify-end gap-2 px-3">
                     <ReviewLog data={data.reviewLogs} />
                     <FormReject projectId={data.id} />
-                    <FormApprove projectId={data.id} />
+                    {
+                      data.addressPoolPaymentLog.length > 0 ? (<FormApprove projectId={data.id} />) : (
+                        <Button disabled variant={'outline'}>Waiting Payment...</Button>
+                      )
+                    }
+                    
                   </div>
                 </div>
                 <div className="grid lg:grid-cols-2">
@@ -102,9 +108,10 @@ export default function ProjectContent() {
                   <RowItem labelWidth="w-1/3" label="Total Supply" value={data.totalSupply} />
                   <RowItem labelWidth="w-1/3" label="Status" value={data.status} />
                   <RowItem labelWidth="w-1/3" label="Category" value={data.category.name} />
+                  <RowItem labelWidth="w-1/3" label="Payment Status" value={`${data.addressPoolPaymentLog.length > 0 ? 'Paid' : 'Unpaid'}`} />
                 </div>
               </div>
-              <div className="mt-6">
+              {/* <div className="mt-6">
                 <h2 className="mb-2 text-lg font-semibold">Presale Info</h2>
                 <div>
                   <RowItem labelWidth="w-1/3" label="Hardcap" value={data.presales.hardcap} />
@@ -112,7 +119,7 @@ export default function ProjectContent() {
                   <RowItem labelWidth="w-1/3" label="Max Contribution" value={data.presales.maxContribution} />
                   <RowItem labelWidth="w-1/3" label="End Date" value={`${dayjs(data.presales.duration).format('MMM DD, YYYY HH:MM')}`} />
                 </div>
-              </div>
+              </div> */}
               <div className="pt-3 border-t">
                 <div className="grid gap-3 lg:grid-cols-2 items-center">
                   <Allocations data={data.allocations} />
