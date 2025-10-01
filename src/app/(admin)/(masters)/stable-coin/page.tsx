@@ -1,9 +1,9 @@
 import PageContainer from '@/components/page-container'
 import Table from './table'
 
-export default function MasterPaymentPage() {
+export default function StableCoinPage() {
   return (
-    <PageContainer title='Master Listing Fee' subtitle='List Of Master Listing Fee'>
+    <PageContainer title='Stable Coin' subtitle='List Of Stable Coin'>
       <Table />
     </PageContainer>
   )
