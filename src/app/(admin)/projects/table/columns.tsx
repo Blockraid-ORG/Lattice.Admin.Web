@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { toUrlAsset } from "@/lib/utils";
 import { TProject } from "@/types/project";
 import { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +50,7 @@ export const columns: ColumnDef<TProject>[] = [
             <div>
               <div>Paid</div>
               <div className="text-xs font-semibold">
-                {row.original.addressPoolPaymentLog[0].createdAt}
+                {dayjs(row.original.addressPoolPaymentLog[0].createdAt).format('YYYY-MM-DD HH:mm')}
               </div>
             </div>
           ) : (
