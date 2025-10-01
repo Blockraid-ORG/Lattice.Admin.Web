@@ -7,6 +7,7 @@ export type TFormChain = z.infer<typeof formChainSchema>
 export type TChain = {
   id: string
   name: string
+  aliasName: string
   ticker: string
   logo: string
   urlScanner: string

@@ -33,6 +33,7 @@ export function FormSubmit({ data }: { data?: TChain }) {
   const form = useForm<TFormChain>({
     resolver: zodResolver(formChainSchema),
     defaultValues: {
+      aliasName: "",
       name: "",
       logo: "",
       ticker: "",
@@ -75,6 +76,7 @@ export function FormSubmit({ data }: { data?: TChain }) {
       chainid: data?.chainid,
       logo: data?.logo,
       name: data?.name,
+      aliasName: data?.aliasName,
       ticker: data?.ticker,
       type: data?.type,
       urlApi: data?.urlApi || '-',
@@ -111,11 +113,18 @@ export function FormSubmit({ data }: { data?: TChain }) {
                       <FormImageDropzone defaultImage={data?.logo ? toUrlAsset(form.getValues('logo')!) : ''} onChange={handleUploadFile} text="Upload Icon Here..." />
                     </div>
                     <div className="md:col-span-3 space-y-2">
-                      <FormInput
-                        placeholder="name"
-                        label="Name" name={"name"}
-                        control={form.control}
-                      />
+                      <div className="grid grid-cols-2 gap-3">
+                        <FormInput
+                          placeholder="name"
+                          label="Name" name={"name"}
+                          control={form.control}
+                        />
+                        <FormInput
+                          placeholder="aliasName"
+                          label="Alias" name={"aliasName"}
+                          control={form.control}
+                        />
+                      </div>
                       <div className="grid grid-cols-2 gap-3">
                         <FormInput
                           placeholder="ticker"
