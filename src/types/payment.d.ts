@@ -6,10 +6,22 @@ export type TFormMasterPayment = z.infer<typeof formMasterPaymentSchema>
 
 export type TMasterPayment = {
   id: string
-  name: string
-  address: string
-  balance: string
-  ticker: string
+  paymentSc: string
+  listingFee: string
+  presaleFee: number
   decimal: number
-  amountFee: string,
+  status: boolean
+  stableCoin: {
+    id: string
+    address: string
+    chain: {
+      id: string
+      name: string
+      ticker: string
+    }
+    stableCoin: {
+      id: string
+      name: string
+    }
+  }
 }

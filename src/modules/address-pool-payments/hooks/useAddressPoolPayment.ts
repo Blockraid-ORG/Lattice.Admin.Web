@@ -87,3 +87,23 @@ export const useAddressPoolPaymentList = () => {
     enabled: true
   });
 }
+
+export const useSetStatusAddressPoolPayment = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, status}:{ id: string, status: boolean }) => service.SET_STATUS(id, status),
+    onSuccess: () => {
+      toast.success('Success', {
+        description: "Success change status"
+      })
+      queryClient.invalidateQueries({
+        queryKey: ["get_address_pool_payments"]
+      });
+    },
+    onError: () => {
+      toast.error('Error', {
+        description: "Fail to change status!"
+      })
+    }
+  });
+};

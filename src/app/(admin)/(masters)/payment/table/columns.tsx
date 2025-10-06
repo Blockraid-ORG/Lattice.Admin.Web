@@ -3,25 +3,44 @@ import { TMasterPayment } from "@/types/payment";
 import { ColumnDef } from "@tanstack/react-table";
 import { ConfirmDelete } from "../confirm-delete";
 import { FormSubmit } from "../form-submit";
+import { StatusPayment } from "../status-payment";
 export const columns: ColumnDef<TMasterPayment>[] = [
   {
-    accessorKey: 'name',
-    header: 'Name',
+    accessorKey: 'stableCoin.chain.name',
+    header: 'Chain',
   },
   {
-    accessorKey: 'ticker',
-    header: 'Ticker',
+    accessorKey: 'paymentSc',
+    header: 'Payment Address',
   },
   {
-    accessorKey: 'address',
-    header: 'Address',
+    accessorKey: 'stableCoin.address',
+    header: 'Stable Address',
   },
   {
-    accessorKey: 'amountFee',
-    header: 'Fee',
-    cell: ({ row }) => { 
+    accessorKey: 'presaleFee',
+    header: 'Presale Fee',
+    cell: ({ row }) => {
       return (
-        <div>{row.original.amountFee} { row.original.ticker}</div>
+        <div>{row.original.presaleFee}%</div>
+      )
+    }
+  },
+  {
+    accessorKey: 'listingFee',
+    header: 'Listing Fee',
+    cell: ({ row }) => {
+      return (
+        <div>{row.original.listingFee} { row.original.stableCoin.stableCoin.name}</div>
+      )
+    }
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => {
+      return (
+        <StatusPayment data={row.original} />
       )
     }
   },
