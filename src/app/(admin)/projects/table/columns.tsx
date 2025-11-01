@@ -46,11 +46,11 @@ export const columns: ColumnDef<TProject>[] = [
     cell: ({ row }) => {
       return (
         <>
-          {row.original.addressPoolPaymentLog.length > 0 ? (
+          {row.original.PaymentHistory.length > 0 ? (
             <div>
               <div>Paid</div>
               <div className="text-xs font-semibold">
-                {dayjs(row.original.addressPoolPaymentLog[0].createdAt).format('YYYY-MM-DD HH:mm')}
+                {dayjs(row.original.PaymentHistory[0].createdAt).format('YYYY-MM-DD HH:mm')}
               </div>
             </div>
           ) : (

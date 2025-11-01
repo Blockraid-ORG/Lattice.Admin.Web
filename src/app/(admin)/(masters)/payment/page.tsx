@@ -3,7 +3,7 @@ import Table from './table'
 
 export default function MasterPaymentPage() {
   return (
-    <PageContainer title='Master Listing Fee' subtitle='List Of Master Listing Fee'>
+    <PageContainer title='Master Payment' subtitle='List Of Master Payment & Fee'>
       <Table />
     </PageContainer>
   )

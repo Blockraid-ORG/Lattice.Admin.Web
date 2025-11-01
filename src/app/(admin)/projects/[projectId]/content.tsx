@@ -34,7 +34,7 @@ export default function ProjectContent() {
                     <ReviewLog data={data.reviewLogs} />
                     <FormReject projectId={data.id} />
                     {
-                      data.addressPoolPaymentLog.length > 0 ? (<FormApprove projectId={data.id} />) : (
+                      data.PaymentHistory.length > 0 ? (<FormApprove projectId={data.id} />) : (
                         <Button disabled variant={'outline'}>Waiting Payment...</Button>
                       )
                     }
@@ -108,7 +108,7 @@ export default function ProjectContent() {
                   <RowItem labelWidth="w-1/3" label="Total Supply" value={data.totalSupply} />
                   <RowItem labelWidth="w-1/3" label="Status" value={data.status} />
                   <RowItem labelWidth="w-1/3" label="Category" value={data.category.name} />
-                  <RowItem labelWidth="w-1/3" label="Payment Status" value={`${data.addressPoolPaymentLog.length > 0 ? 'Paid' : 'Unpaid'}`} />
+                  <RowItem labelWidth="w-1/3" label="Payment Status" value={`${data.PaymentHistory.length > 0 ? 'Paid' : 'Unpaid'}`} />
                 </div>
               </div>
               {/* <div className="mt-6">
