@@ -1,19 +1,34 @@
-# Step 1: Build
+# Install dependencies
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install --frozen-lockfile
+
+# Build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN npm install
-RUN npm run build
+ENV NODE_ENV=production
 
-# Step 2: Run
+RUN yarn build
+
+# Runtime
 FROM node:20-alpine
 
 WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=5000
+
 COPY --from=builder /app ./
 
-RUN npm install --production
+EXPOSE 5000
 
-EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["yarn", "start", "-p", "5000"]

@@ -1,13 +1,28 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  lattice-admin-nextjs-app:
-    container_name: lattice-admin-nextjs-app
+  launchpad-admin:
+    container_name: launchpad-admin
+
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+
+    restart: unless-stopped
+
     env_file:
       - .env
-    restart: unless-stopped
+
+    networks:
+      - production
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.launchpad-admin.rule=Host(`launchpad-admin.terravest.capital`)"
+      - "traefik.http.routers.launchpad-admin.entrypoints=websecure"
+      - "traefik.http.routers.launchpad-admin.tls.certresolver=letsencrypt"
+      - "traefik.http.services.launchpad-admin.loadbalancer.server.port=5000"
+
+networks:
+  production:
+    external: true
